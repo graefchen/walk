@@ -63,11 +63,11 @@ Now you can see the full list:
 
 ```nushell
 > walk list
-╭───┬──────┬──────────────────╮
-│ # │ name │      path        │
-├───┼──────┼──────────────────┤
-│ 0 │ home │ C:\<user>\<user> │
-╰───┴──────┴──────────────────╯
+╭───┬──────┬─────────────────╮
+│ # │ name │      path       │
+├───┼──────┼─────────────────┤
+│ 0 │ home │ C:\Users\<user> │
+╰───┴──────┴─────────────────╯
 ```
 
 To change your current directory to the `home` bookmark:
