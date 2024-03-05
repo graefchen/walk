@@ -70,6 +70,11 @@ Now you can see the full list:
 ╰───┴──────┴─────────────────╯
 ```
 
+To change your current directory to the `home` bookmark:
+```nushell
+> walk via home
+```
+
 To delete the bookmark `home`:
 
 ```nushell
