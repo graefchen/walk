@@ -1,7 +1,7 @@
 {
 	name: "walk"
 	type: "module"
-	version: "1.0.0"
+	version: "1.1.0"
 	description: "A walker to bookmarked projects using an small sqlite db"
 	maintainers: [
 		@graefchen

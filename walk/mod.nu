@@ -19,7 +19,7 @@ export def list []: nothing -> any, nothing -> table {
 	if (not ($pth | path exists)) {
 		[] | save $pth
 	}
-	open ($pth)
+	open ($pth) | sort -v
 }
 
 # Creating an new bookmark
