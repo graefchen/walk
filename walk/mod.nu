@@ -13,6 +13,12 @@ def save_bookmarks []: any -> nothing {
 	$in | save -f (get_bookmarks)
 }
 
+# creating a bookmark list for custom completion
+def bookmarks []: nothing -> nothing {
+	list
+	| each {|r| { value: $r.name, description: $r.path }}
+}
+
 # List all bookmarks
 export def list []: nothing -> any, nothing -> table {
 	let pth = (get_bookmarks)
@@ -36,7 +42,7 @@ export def add [
 
 # Deleting an bookmark
 export def remove [
-	name: string # The bookmarks to delete
+	name: string@bookmarks # The bookmarks to delete
 ]: nothing -> nothing {
 	list
 	| where {|r| not ($r.name == $name) }
@@ -46,12 +52,6 @@ export def remove [
 # Reset all bookmarks
 export def reset []: nothing -> nothing {
 	(rm -f (get_bookmarks))
-}
-
-# creating a bookmark list for custom completion
-def bookmarks []: nothing -> nothing {
-	list
-	| each {|r| { value: $r.name, description: $r.path }}
 }
 
 # Walking to a predefined bookmark
