@@ -167,7 +167,7 @@ when calling the `walk via` command is used. So if we have the list:
 You will **always** end in the `C:\Users\<user>` directory when using `walk via home`.
 
 > [!IMPORTANT]
-> When using `walk delete home` all entrie's with the name of `home`
+> When using `walk delete home` all entries with the name of `home`
 > will get deleted.
 
 ### Can you change that all subcommands also print out the lists?
