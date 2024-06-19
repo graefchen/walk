@@ -33,10 +33,14 @@ export def add [
 	name: string # The name of the new bookmark
 	path: path # The path of the new bookmark
 ]: nothing -> nothing {
-	if (($path | path type) == "dir") and ($path | path exists) {
-		list
-		| append {name: ($name), path: ($path) }
-		| save_bookmarks
+	if (list | get name | where {|x| $x == $name} | is-empty) {
+		if (($path | path type) == "dir") and ($path | path exists) {
+			list
+			| append {name: ($name), path: ($path) }
+			| save_bookmarks
+		}
+	} else {
+		print $"The bookmark: \"(ansi yellow)($name)(ansi reset)\" already exists."
 	}
 }
 
@@ -47,6 +51,20 @@ export def remove [
 	list
 	| where {|r| not ($r.name == $name) }
 	| save_bookmarks
+}
+
+# Renames a boolmark
+export def rename [
+	old_name: string@bookmarks # The bookmark to rename
+	new_name: string # The new name for the bookmark
+]: nothing -> nothing {
+	if (list | is-empty) {
+		print "You can not change a name, because there are no bookmarks."
+	} else {
+		list
+		| update cells -c ["name"] {|v|if $v == $old_name {$new_name} else {$v}}
+		| save_bookmarks
+	}
 }
 
 # Reset all bookmarks
