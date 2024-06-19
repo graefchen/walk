@@ -1,4 +1,4 @@
-# An simple and opinionated bookmark-like module to get around your system fast
+# An simple and opinionated bookmark-like module to get around your system fast.
 
 # Function to get the bookmarks
 def get_bookmarks []: nothing -> string {
@@ -31,7 +31,7 @@ export def list []: nothing -> any, nothing -> table {
 # Creating an new bookmark
 export def add [
 	name: string # The name of the new bookmark
-	path: path # The path of the new bookmark
+	path: path = "." # The path of the new bookmark
 ]: nothing -> nothing {
 	if (list | get name | where {|x| $x == $name} | is-empty) {
 		if (($path | path type) == "dir") and ($path | path exists) {
@@ -61,9 +61,13 @@ export def rename [
 	if (list | is-empty) {
 		print "You can not change a name, because there are no bookmarks."
 	} else {
-		list
-		| update cells -c ["name"] {|v|if $v == $old_name {$new_name} else {$v}}
-		| save_bookmarks
+		if (list | get name | where {|x| $x == $new_name} | is-empty) {
+			list
+			| update cells -c ["name"] {|v|if $v == $old_name {$new_name} else {$v}}
+			| save_bookmarks
+		} else {
+			print $"The bookmark: \"(ansi yellow)($new_name)(ansi reset)\" already exists."
+		}
 	}
 }
 
