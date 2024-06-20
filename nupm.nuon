@@ -1,7 +1,7 @@
 {
 	name: "walk"
 	type: "module"
-	version: "2.1.0"
+	version: "2.1.1"
 	description: "A walker to bookmarked projects"
 	maintainers: [
 		@graefchen

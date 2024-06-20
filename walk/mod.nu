@@ -31,7 +31,7 @@ export def list []: nothing -> any, nothing -> table {
 # Creating an new bookmark
 export def add [
 	name: string # The name of the new bookmark
-	path: path = "." # The path of the new bookmark
+	path: path # The path of the new bookmark
 ]: nothing -> nothing {
 	if (list | get name | where {|x| $x == $name} | is-empty) {
 		if (($path | path type) == "dir") and ($path | path exists) {
