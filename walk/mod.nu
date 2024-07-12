@@ -1,5 +1,3 @@
-# An simple and opinionated bookmark-like module to get around your system fast.
-
 # Function to get the bookmarks
 def get_bookmarks []: nothing -> string {
 	$env.WALK_PATH?
@@ -29,10 +27,17 @@ export def list []: nothing -> any, nothing -> table {
 }
 
 # Creating an new bookmark
-export def add [
-	name: string # The name of the new bookmark
-	path: path # The path of the new bookmark
+export def --env add [
+	name: string = "c249b5de2ea666f161172e1810ca657a" # The name of the new bookmark
+	path: path = "9a59318f8704dd710a5604f80fef368f" # The path of the new bookmark
 ]: nothing -> nothing {
+	if $name == "c249b5de2ea666f161172e1810ca657a" {
+		$name = ($env.PWD | split row "\\" | last)
+	}
+	if $path == "9a59318f8704dd710a5604f80fef368f" {
+		$path = ($env.PWD)
+	}
+
 	if (list | get name | where {|x| $x == $name} | is-empty) {
 		if (($path | path type) == "dir") and ($path | path exists) {
 			list
@@ -76,18 +81,29 @@ export def reset []: nothing -> nothing {
 	(rm -f (get_bookmarks))
 }
 
-# Walking to a predefined bookmark
-export def --env via [
-	name: string@bookmarks # The bookmark to walk into
+# An simple and opinionated bookmark-like module to get around your system fast.
+export def --env main [
+	name: string@bookmarks = "31230bb0f6c85deb56a950845515b39e"
 ]: nothing -> nothing {
-	list
-	| where {|r| $r.name == $name}
-	| get path
-	| get 0
-	| cd $in
-}
-
-# Printing an help message
-export def main []: nothing -> nothing {
-	print -n (help walk)
+	if $name != "31230bb0f6c85deb56a950845515b39e" {
+		list
+		| where {|r| $r.name == $name}
+		| get path
+		| get 0
+		| cd $in
+	} else {
+		print ([
+			"walk is an simple and opinionated bookmark-like module to get around your system fast."
+			""
+			$"(ansi green)Usage: (ansi blue)walk [SUBCOMMAND] [bookmark]:(ansi reset)"
+			""
+			$"(ansi green)Subcommands:(ansi reset)"
+			$"    (ansi blue)add    (ansi reset) Add a new bookmark"
+			$"    (ansi blue)list   (ansi reset) List all bookmarks"
+			$"    (ansi blue)remove (ansi reset) Remove a bookmark"
+			$"    (ansi blue)reset  (ansi reset) Reset all bookmarks \(All bookmarks get deleted)"
+			$"    (ansi blue)rename (ansi reset) Rename a bookmark"
+		]
+		| str join "\n")
+	}
 }

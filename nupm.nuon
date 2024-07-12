@@ -1,13 +1,13 @@
 {
 	name: "walk"
 	type: "module"
-	version: "2.1.1"
+	version: "3.0.0"
 	description: "A walker to bookmarked projects"
 	maintainers: [
 		@graefchen
 	]
 	license: "MIT"
 	dependencies: {
-		nushell: 0.90.1
+		nushell: 0.95.0
 	}
 }
